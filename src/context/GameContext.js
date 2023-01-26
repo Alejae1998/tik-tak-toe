@@ -16,9 +16,24 @@ const GameProvider = ({ children }) => {
   ]);
   const [currentPlayer, setCurrentPlayer] = useState('O');
   const [active, setActive] = useState(false);
-  const [gameMessage, setGameMessage] = useState('');
+  const [gameMessage, setGameMessage] = useState('Your turn O');
 
-  return <GameContext.Provider value={{}}>{children}</GameContext.Provider>;
+  return (
+    <GameContext.Provider
+      value={{
+        board,
+        setBoard,
+        currentPlayer,
+        setCurrentPlayer,
+        active,
+        setActive,
+        gameMessage,
+        setGameMessage,
+      }}
+    >
+      {children}
+    </GameContext.Provider>
+  );
 };
 
-export { GameProvider };
+export { GameProvider, GameContext };
