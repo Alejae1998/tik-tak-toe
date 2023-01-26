@@ -9,8 +9,9 @@ export default function BoxSx({ content, space }) {
     <Box
       onClick={handleClick}
       sx={{
-        width: 300,
-        height: 300,
+        marginBottom: (theme) => theme.spacing(3),
+        width: 150,
+        height: 150,
         backgroundColor: 'primary.dark',
         '&:hover': {
           backgroundColor: 'primary.main',
