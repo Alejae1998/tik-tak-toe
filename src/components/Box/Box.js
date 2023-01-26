@@ -9,7 +9,7 @@ export default function BoxSx({ content, space }) {
     <Box
       onClick={handleClick}
       sx={{
-        marginBottom: (theme) => theme.spacing(3),
+        marginBottom: (theme) => theme.spacing(1),
         width: 150,
         height: 150,
         backgroundColor: 'primary.dark',
