@@ -17,6 +17,7 @@ const GameProvider = ({ children }) => {
   const [currentPlayer, setCurrentPlayer] = useState('O');
   const [active, setActive] = useState(false);
   const [gameMessage, setGameMessage] = useState('Your turn O');
+  const [winner, setWinner] = useState(false);
 
   const handleBoxClick = (box) => {
     const currentBoxIndex = board.findIndex((boardBox) => boardBox.space === box.space);
@@ -32,17 +33,19 @@ const GameProvider = ({ children }) => {
     setGameMessage(`Your turn ${currentPlayer === 'O' ? 'X' : 'O'}`);
   };
   const checkStats = () => {
-    if (!active) return;
-    const winner = checkWinner();
+    // if (!active) return;
+    if (board[0].content === board[1].content && board[1].content === board[2].content)
+      setWinner(true);
+    setActive(false);
+    const fullBoard = false;
     if (winner) {
       setGameMessage(`You win ${winner}!`);
       setActive(false);
-    } else if (isCatsGame()) {
+    } else if (fullBoard) {
       setGameMessage('Cats  Game!');
       setActive(false);
     }
   };
-  checkStats();
 
   return (
     <GameContext.Provider

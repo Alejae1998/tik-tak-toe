@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
+import { GameContext } from '../../context/GameContext.js';
 
 export default function BoxSx({ content, space, handleBoxClick }) {
+  const { checkStats } = useContext(GameContext);
   const handleClick = () => {
     handleBoxClick({ content, space });
+    checkStats();
   };
   return (
     <Button
