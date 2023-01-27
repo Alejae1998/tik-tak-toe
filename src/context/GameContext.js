@@ -16,7 +16,7 @@ const GameProvider = ({ children }) => {
   ]);
   const [currentPlayer, setCurrentPlayer] = useState('O');
   const [active, setActive] = useState(false);
-  const [gameMessage, setGameMessage] = useState(`Your turn ${currentPlayer}`);
+  const [gameMessage, setGameMessage] = useState('Your turn O');
 
   const handleBoxClick = (box) => {
     const currentBoxIndex = board.findIndex((boardBox) => boardBox.space === box.space);
@@ -29,6 +29,7 @@ const GameProvider = ({ children }) => {
       setBoard(newBoard);
     }
     setCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O');
+    setGameMessage(`Your turn ${currentPlayer === 'O' ? 'X' : 'O'}`);
   };
   return (
     <GameContext.Provider

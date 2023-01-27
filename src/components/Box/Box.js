@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 
 export default function BoxSx({ content, space, handleBoxClick }) {
   const handleClick = () => {
-    // console.log(`{ content, space }`, { content, space });
     handleBoxClick({ content, space });
   };
   return (

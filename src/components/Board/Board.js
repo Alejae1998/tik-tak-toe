@@ -5,7 +5,6 @@ import { useContext } from 'react';
 
 export default function Board() {
   const { board, handleBoxClick } = useContext(GameContext);
-  console.log(`board`, board);
   return (
     <div className="board">
       {board.map((box) => (
