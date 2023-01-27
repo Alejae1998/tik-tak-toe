@@ -4,11 +4,12 @@ import './Board.css';
 import { useContext } from 'react';
 
 export default function Board() {
-  const { board } = useContext(GameContext);
+  const { board, handleBoxClick } = useContext(GameContext);
+  console.log(`board`, board);
   return (
     <div className="board">
       {board.map((box) => (
-        <BoxSx key={box.space} {...box} />
+        <BoxSx key={box.space} {...box} handleBoxClick={handleBoxClick} />
       ))}
     </div>
   );

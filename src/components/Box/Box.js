@@ -1,26 +1,28 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
-export default function BoxSx({ content, space }) {
+export default function BoxSx({ content, space, handleBoxClick }) {
   const handleClick = () => {
-    ({ content, space });
+    // console.log(`{ content, space }`, { content, space });
+    handleBoxClick({ content, space });
   };
   return (
-    <Box
+    <Button
       onClick={handleClick}
+      disabled={content ? true : false}
       sx={{
         marginBottom: (theme) => theme.spacing(1),
         width: 150,
         height: 150,
-        backgroundColor: 'primary.dark',
+        backgroundColor: '#e0ffcd',
         '&:hover': {
-          backgroundColor: 'primary.main',
+          backgroundColor: '#ffcab0',
           opacity: [0.9, 0.8, 0.7],
         },
       }}
     >
       <span className="square">{content}</span>
-    </Box>
+    </Button>
 
     //   <span className="square">{content}</span>
   );
