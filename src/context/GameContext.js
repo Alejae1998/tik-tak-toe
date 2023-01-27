@@ -31,6 +31,22 @@ const GameProvider = ({ children }) => {
     setCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O');
     setGameMessage(`Your turn ${currentPlayer === 'O' ? 'X' : 'O'}`);
   };
+  const checkStats = () => {
+    if (!active) return;
+    {
+      setActive(false);
+      if (currentPlayer !== 'X') {
+        setGameMessage('X you win');
+      } else {
+        setGameMessage('O you kill it');
+      }
+    }
+    if (!board.filter((boardSquare) => boardSquare.content === '').length) {
+      setActive(false);
+      setGameMessage('Cat game!');
+    }
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -43,6 +59,7 @@ const GameProvider = ({ children }) => {
         gameMessage,
         setGameMessage,
         handleBoxClick,
+        checkStats,
       }}
     >
       {children}
