@@ -33,19 +33,16 @@ const GameProvider = ({ children }) => {
   };
   const checkStats = () => {
     if (!active) return;
-    {
+    const winner = checkWinner();
+    if (winner) {
+      setGameMessage(`You win ${winner}!`);
       setActive(false);
-      if (currentPlayer !== 'X') {
-        setGameMessage('X you win');
-      } else {
-        setGameMessage('O you kill it');
-      }
-    }
-    if (!board.filter((boardSquare) => boardSquare.content === '').length) {
+    } else if (isCatsGame()) {
+      setGameMessage('Cats  Game!');
       setActive(false);
-      setGameMessage('Cat game!');
     }
   };
+  checkStats();
 
   return (
     <GameContext.Provider
