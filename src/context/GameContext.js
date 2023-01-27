@@ -37,6 +37,7 @@ const GameProvider = ({ children }) => {
     if (board[0].content === board[1].content && board[1].content === board[2].content)
       setWinner(true);
     setActive(false);
+
     const fullBoard = false;
     if (winner) {
       setGameMessage(`You win ${winner}!`);
@@ -45,6 +46,23 @@ const GameProvider = ({ children }) => {
       setGameMessage('Cats  Game!');
       setActive(false);
     }
+  };
+
+  const resetGame = () => {
+    setBoard([
+      { space: 1, content: '' },
+      { space: 2, content: '' },
+      { space: 3, content: '' },
+      { space: 4, content: '' },
+      { space: 5, content: '' },
+      { space: 6, content: '' },
+      { space: 7, content: '' },
+      { space: 8, content: '' },
+      { space: 9, content: '' },
+    ]);
+    setActive(true);
+    setGameMessage('Play Again?');
+    setCurrentPlayer('O');
   };
 
   return (
@@ -60,6 +78,7 @@ const GameProvider = ({ children }) => {
         setGameMessage,
         handleBoxClick,
         checkStats,
+        resetGame,
       }}
     >
       {children}
