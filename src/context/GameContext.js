@@ -15,36 +15,92 @@ const GameProvider = ({ children }) => {
     { space: 9, content: '' },
   ]);
   const [currentPlayer, setCurrentPlayer] = useState('O');
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
   const [gameMessage, setGameMessage] = useState('Your turn O');
-  const [winner, setWinner] = useState(false);
+  const [movesBoard, setMovesBoard] = useState({
+    win1: {
+      0: '',
+      1: '',
+      2: '',
+    },
+    win2: {
+      0: '',
+      3: '',
+      6: '',
+    },
+    win3: {
+      0: '',
+      4: '',
+      8: '',
+    },
+    win4: {
+      1: '',
+      4: '',
+      7: '',
+    },
+    win5: {
+      2: '',
+      5: '',
+      8: '',
+    },
+    win6: {
+      2: '',
+      4: '',
+      6: '',
+    },
+    win7: {
+      3: '',
+      4: '',
+      5: '',
+    },
+    win8: {
+      6: '',
+      7: '',
+      8: '',
+    },
+  });
+  const [movesCount, setMovesCount] = useState(0);
+  let hasWinner = false;
 
   const handleBoxClick = (box) => {
+    setMovesCount(movesCount + 1);
     const currentBoxIndex = board.findIndex((boardBox) => boardBox.space === box.space);
     const newBoard = board;
+    const newPossibleWins = movesBoard;
+
     if (!newBoard[currentBoxIndex].content) {
       newBoard[currentBoxIndex] = {
         space: newBoard[currentBoxIndex].space,
         content: currentPlayer,
       };
       setBoard(newBoard);
-    }
-    setCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O');
-    setGameMessage(`Your turn ${currentPlayer === 'O' ? 'X' : 'O'}`);
-  };
-  const checkStats = () => {
-    // if (!active) return;
-    if (board[0].content === board[1].content && board[1].content === board[2].content)
-      setWinner(true);
-    setActive(false);
 
-    const fullBoard = false;
-    if (winner) {
-      setGameMessage(`You win ${winner}!`);
-      setActive(false);
-    } else if (fullBoard) {
-      setGameMessage('Cats  Game!');
-      setActive(false);
+      Object.values(newPossibleWins).map((possibleWin) => {
+        if (Object.keys(possibleWin).includes((box.space - 1).toString())) {
+          possibleWin[box.space - 1] = currentPlayer;
+          const count = Object.values(possibleWin).reduce((n, val) => {
+            return n + (val === currentPlayer);
+          }, 0);
+
+          if (count === 3) {
+            setGameMessage(`You win ${currentPlayer}!`);
+            setActive(false);
+            hasWinner = true;
+          }
+        }
+        return possibleWin;
+      });
+      setMovesBoard(newPossibleWins);
+
+      if (!hasWinner) {
+        if (movesCount < 8) {
+          setCurrentPlayer(currentPlayer === 'O' ? 'X' : 'O');
+          setGameMessage(`Your turn ${currentPlayer === 'O' ? 'X' : 'O'}`);
+        } else {
+          setGameMessage('Cats Game!');
+          setActive(false);
+        }
+      }
     }
   };
 
@@ -60,6 +116,50 @@ const GameProvider = ({ children }) => {
       { space: 8, content: '' },
       { space: 9, content: '' },
     ]);
+    setMovesBoard({
+      win1: {
+        0: '',
+        1: '',
+        2: '',
+      },
+      win2: {
+        0: '',
+        3: '',
+        6: '',
+      },
+      win3: {
+        0: '',
+        4: '',
+        8: '',
+      },
+      win4: {
+        1: '',
+        4: '',
+        7: '',
+      },
+      win5: {
+        2: '',
+        5: '',
+        8: '',
+      },
+      win6: {
+        2: '',
+        4: '',
+        6: '',
+      },
+      win7: {
+        3: '',
+        4: '',
+        5: '',
+      },
+      win8: {
+        6: '',
+        7: '',
+        8: '',
+      },
+    });
+    setMovesCount(0);
+    hasWinner = false;
     setActive(true);
     setGameMessage('Play Again?');
     setCurrentPlayer('O');
@@ -77,7 +177,6 @@ const GameProvider = ({ children }) => {
         gameMessage,
         setGameMessage,
         handleBoxClick,
-        checkStats,
         resetGame,
       }}
     >
