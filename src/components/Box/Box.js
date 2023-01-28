@@ -1,17 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
-import { GameContext } from '../../context/GameContext.js';
 
-export default function BoxSx({ content, space, handleBoxClick }) {
-  const { checkStats } = useContext(GameContext);
+export default function BoxSx({ content, space, handleBoxClick, active }) {
   const handleClick = () => {
     handleBoxClick({ content, space });
-    checkStats();
   };
+
   return (
     <Button
       onClick={handleClick}
-      disabled={content ? true : false}
+      disabled={content || !active ? true : false}
       sx={{
         marginBottom: (theme) => theme.spacing(1),
         width: 150,
@@ -25,7 +23,5 @@ export default function BoxSx({ content, space, handleBoxClick }) {
     >
       <span className="square">{content}</span>
     </Button>
-
-    //   <span className="square">{content}</span>
   );
 }
